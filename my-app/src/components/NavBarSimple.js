@@ -1,43 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
+import css from "./css/NavBarSimple.module.css";
 
-class NavBarSimple extends React.Component{
+class NavBarSimple extends Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {
-            introduction: "Hello, guest!",
-            buttonText: "Log in",
-            count: 0
-        };
+            message: "Hello, guest!",
+            buttonText: "Log in"
+        }
     }
 
-    handleClick() {
-        this.setState((prevState, prevProps) => {
-          console.log("Previous State:", prevState);
-          console.log("Previous Props:", prevProps);
-          return {
-            introduction:
-              prevState.introduction === "Hello, guest!" ? "Welcome back, guest!" : "Hello, guest!",
-            buttonText: prevState.buttonText === "Log in" ? "Log out" : "Log in",
-          };
-        });
-      }
-    
-    
-      render() {
-        return (
-          <div>
-            <h1>
-              My Gallery <span>{this.state.introduction} {this.props.greeting}</span>
-              <button onClick={() => this.handleClick()}>
-              {this.state.buttonText}
-            </button>
-            </h1>
-            
-          </div>
-        );
-      }
+    handleclick = () => {
+        this.setState((prevState) => ({
+            message: prevState.message === "Hello, guest!" ? "Welcome back, user!" : "Hello, guest!",
+            buttonText: prevState.buttonText === "Log out" ? "Log in" : "Log out",
+        }), ()=> console.log(this.state.message))
+        
+    }
 
+    render() {
+        return (
+            <div className={css.NavBar}>
+                <h1>My Gallery</h1>
+                <div>
+                    <span>{this.state.message}</span>
+                    <button onClick={() => this.handleclick()}>{this.state.buttonText}</button>
+                </div>
+            </div>
+        )
+    }
 }
 
-export default NavBarSimple;
+export default NavBarSimple
